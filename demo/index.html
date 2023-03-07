@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VanillaState Demo</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div id="__vanilla__">
+      <header>
+        <h1 class="title">🍨 VanillaState 🍨</h1>
+      </header>
+      <main>
+        <section>
+          <h2>What is your name?</h2>
+          <p>Please tell me your name😃</p>
+          <p>Now value is: <b>%name</b></p>
+          <button onclick="changeName()">Input name 🥳</button>
+          <button onclick="checkName()">Is my name? 🙄</button>
+        </section>
+        <section data-visible="isVisibleGreeting">
+          <h2>Greeting</h2>
+          <p>%greeting</p>
+        </section>
+      </main>
+    </div>
+
+    <script src="../dist/vanillastate.js"></script>
+    <script>
+      const vs = new VannilaState("__vanilla__")
+
+      const name = vs.useState("name", "No name")
+      const greeting = vs.useState("greeting", () =>
+        name.get() !== "No name"
+          ? `Hello, ${name.get()}! Welcome to VanillaState!`
+          : "Please tell me your name before greeting🥺"
+      )
+      const isVisibleGreeting = vs.useState(
+        "isVisibleGreeting",
+        () => name.get() !== "No name"
+      )
+
+      function checkName() {
+        alert(`I heard that your name is ${name.get()}.`)
+      }
+      function changeName() {
+        const newName = window.prompt("What is your name?")
+        if (!newName) {
+          return
+        }
+        name.set(newName)
+      }
+    </script>
+  </body>
+</html>

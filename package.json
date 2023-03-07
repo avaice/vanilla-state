@@ -1,0 +1,22 @@
+{
+  "name": "vanilla-state",
+  "version": "0.1.0",
+  "description": "A state management library for vannilaJS",
+  "main": "index.js",
+  "scripts": {
+    "clean:dist": "rm -rf ./dist",
+    "build": "npm run clean:dist & tsc -d",
+    "minify": "jsmin -o ./dist/vanillastate.min.js ./dist/vanillastate.js"
+  },
+  "author": "avaice",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^4.9.5"
+  },
+  "devDependencies": {
+    "jsmin": "^1.0.1",
+    "ts-loader": "^9.4.2",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
+  }
+}
