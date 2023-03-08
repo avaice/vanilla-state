@@ -45,7 +45,6 @@ class VannilaState {
     const newDom = document.createElement("div")
     newDom.innerHTML = this.template
     this.state.forEach((stateObj, key) => {
-      // this.state.get(v)がundefinedになることはありえない
       newDom.innerHTML = newDom.innerHTML.replace(
         new RegExp(`%${key}`, "g"),
         `%${stateObj.key}`
