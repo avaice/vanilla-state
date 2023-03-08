@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>郵便番号で住所検索</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1 class="title">郵便番号で住所検索</h1>
+    </header>
+    <main>
+      <div class="postinput">
+        <label>
+          <p>郵便番号(ハイフンなし):</p>
+          <input
+            type="number"
+            placeholder="1030000"
+            onchange="postal.set(this.value)"
+          />
+        </label>
+        <button onclick="search()">検索</button>
+      </div>
+      <!-- VanillaStateが描画を担う部分はこの id="result"のdivだけ -->
+      <div id="result">
+        <h2>検索結果</h2>
+        <p>%result</p>
+      </div>
+    </main>
+    <footer>
+      <p>
+        このデモは、<a href="http://zipcloud.ibsnet.co.jp/doc/api"
+          >郵便番号検索API</a
+        >を使用しています。
+      </p>
+    </footer>
+
+    <script src="../js/vanillastate.min.js"></script>
+    <script>
+      // id="result"のDOMを監視する
+      const vs = new VanillaState("result")
+
+      // useState(DOM上のキー(ex. %data), 値, 値が変わった時のコールバック )
+      const data = vs.useState("data", { status: undefined }, (v) => {
+        console.log(`dataの状態更新: ${v.status}`)
+      })
+
+      // useState(DOM上のキー(ex. %data), 値を返す関数 )
+      const result = vs.useState("result", () => {
+        const d = data.get()
+
+        switch (d.status) {
+          case "loadSucceed":
+            return d.value
+          case "loadFailed":
+            return "データ取得に失敗"
+          case "loading":
+            return "検索中..."
+          case undefined:
+            return "郵便番号を入力してください"
+          default:
+            return "不明なエラー"
+        }
+      })
+      const postal = vs.useState("postal", undefined)
+
+      const search = () => {
+        if (data.get().status === "loading") {
+          return
+        }
+
+        const value = postal.get()
+        if (!value) {
+          return alert("郵便番号を入力してください！")
+        }
+        if (value.length !== 7 || isNaN(value)) {
+          return alert("郵便番号が不正です")
+        }
+
+        fetch(`https://zipcloud.ibsnet.co.jp/api/search?zipcode=${value}`).then(
+          (v) =>
+            v.json().then((json) => {
+              try {
+                const res = json.results[0]
+                data.set({
+                  status: "loadSucceed",
+                  value: `${res.address1} ${res.address2} ${res.address3}`,
+                })
+              } catch {
+                data.set({ status: "loadFailed" })
+              }
+            })
+        )
+        data.set({ status: "loading" })
+      }
+    </script>
+  </body>
+</html>

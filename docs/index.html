@@ -4,9 +4,59 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Docs</title>
+    <title>Reference: Vanilla State</title>
+    <style>
+      body {
+        margin: 0 auto;
+        padding: 5px;
+        width: 600px;
+        max-width: calc(100% - 10px);
+        word-wrap: break-word;
+      }
+      .inner {
+        background-color: rgb(245, 245, 245);
+        border-radius: 5px;
+        padding: 5px;
+      }
+      .notice {
+        line-height: 18px;
+        color: red;
+        font-size: 14px;
+      }
+    </style>
   </head>
   <body>
-    <a href="./demo">Check DEMO</a>
+    <h1>Vanilla State</h1>
+    <hr />
+    <div>
+      <p><code>Class VanillaState</code></p>
+      <ul>
+        <li>
+          <pre><code>constructor(domId: string)</code></pre>
+          <div class="inner">
+            <pre><code>state: Map&lt;string, StateProps&gt;</code></pre>
+            <pre><code>id: string | undefined</code></pre>
+            <pre><code>template: string | undefined</code></pre>
+          </div>
+        </li>
+        <li>
+          <pre><code>useState&lt;T&gt;(id: string, value: T, onChange: (v: T) =&gt; void)</code></pre>
+          <ul>
+            <li>
+              <pre><code>get() =&gt;any    // State value</code></pre>
+            </li>
+            <li>
+              <pre><code>set(value: T) =&gt;void</code></pre>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <pre><code>render()=&gt;void</code></pre>
+          <p class="notice">
+            ※ Not supposed to be called from outside the library
+          </p>
+        </li>
+      </ul>
+    </div>
   </body>
 </html>

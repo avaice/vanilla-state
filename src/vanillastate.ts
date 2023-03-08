@@ -1,6 +1,6 @@
 type StateProps = { key: string; value: any }
 
-class VannilaState {
+class VanillaState {
   state = new Map<string, StateProps>()
   id: string | undefined = undefined
   template: string | undefined = undefined
@@ -9,6 +9,9 @@ class VannilaState {
     document.addEventListener("DOMContentLoaded", () => {
       this.id = domId
       this.template = document.getElementById(domId)?.innerHTML
+      if (!this.template) {
+        throw new Error(`Id: ${this.id} is not found!`)
+      }
       this.render()
     })
   }
@@ -18,17 +21,17 @@ class VannilaState {
       return stateObj && dont_call_me_from_outside_vannila_get_state(stateObj)
     }
 
-    const set = (v: T) => {
+    const set = (value: T) => {
       const state = this.state.get(id)
       if (state) {
-        state.value = v
+        state.value = value
         if (onChange) {
-          onChange(v)
+          onChange(value)
         }
       } else {
         this.state.set(id, {
           key: `${id}-${Math.floor(Math.random() * 1000000)}`,
-          value: v,
+          value,
         })
       }
 
