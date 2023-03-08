@@ -1,6 +1,6 @@
 {
   "name": "vanilla-state",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A state management library for vannilaJS",
   "main": "index.js",
   "scripts": {

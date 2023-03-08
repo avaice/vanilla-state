@@ -9,7 +9,7 @@ class VanillaState {
     document.addEventListener("DOMContentLoaded", () => {
       this.id = domId
       this.template = document.getElementById(domId)?.innerHTML
-      if (!this.template) {
+      if (domId && !this.template) {
         throw new Error(`Id: ${this.id} is not found!`)
       }
       this.render()
