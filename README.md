@@ -2,9 +2,9 @@
 
 バニラ JS 向け状態管理ライブラリ。
 
-Document: https://avaice.github.io/vanilla-state/
-Demo(en):https://avaice.github.io/vanilla-state/demo
-Demo(ja):https://avaice.github.io/vanilla-state/demo_ja
+- Document: https://avaice.github.io/vanilla-state/
+- Demo(en):https://avaice.github.io/vanilla-state/demo
+- Demo(ja):https://avaice.github.io/vanilla-state/demo_ja
 
 ## 機能・特徴
 
